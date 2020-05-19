@@ -8,7 +8,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/vfabi/k8s-controller-objects-metadata)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vfabi/k8s-controller-objects-metadata)
 
-K8S controller to get metadata from K8S objects (deployments, pods, etc) and outputs it as json object.  
+K8S controller to get metadata from K8S objects (deployments, pods, etc) and outputs it as http/json.  
 This web application acting as proxy that only reads K8S API data and provides it for the other applications as secure access to K8S object's metadata without direct access to K8S API.
 
 ## Features
@@ -141,10 +141,7 @@ Endpoints:
   Note: if request domain is specified in strict namespace mapping (STRICT_NAMESPACE_MAPPING env variable) this filtering feature won't work.  
 
 Strict namespace mapping feature allow to map request domain only get K8S objects metadata only from specified for it namespace.  
-For example you have 2 domains attached to K8S frontend.develop.example.com and frontend.staging.example.com.  
-You have configured ingress (or other K8S solution) and would like to provide access for application that serves requests at frontend.develop.example.com  
-only for K8S objects metadata from develop namespace - just put this data in STRICT_NAMESPACE_MAPPING env variable `frontend.develop.example.com:develop`  
-or for 2 domains `frontend.develop.example.com:develop,frontend.staging.example.com:staging` accordingly.
+For example you have 2 domains attached to K8S frontend.develop.example.com and frontend.staging.example.com. You have configured ingress (or other K8S solution) and would like to provide access for application that serves requests at frontend.develop.example.com only for K8S objects metadata from develop namespace - just put this data in STRICT_NAMESPACE_MAPPING env variable `frontend.develop.example.com:develop` or for 2 domains `frontend.develop.example.com:develop,frontend.staging.example.com:staging` accordingly.
 
 
 # Docker
