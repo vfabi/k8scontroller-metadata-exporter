@@ -1,11 +1,9 @@
+.venv/
+.vscode/
+.tmp/
+__pycache__/
 *.log
 *.pyc
 *.local
-.tmp/env.local
-.tmp/tmp.py
-tmp.py
-env.local
-TODO.md
-.venv/
-.vscode/
-__pycache__/
+*.local.yaml
+*.local.yml

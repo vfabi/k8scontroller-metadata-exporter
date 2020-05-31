@@ -8,18 +8,13 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/vfabi/k8s-controller-objects-metadata)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vfabi/k8s-controller-objects-metadata)
 
-K8S controller to get metadata from K8S objects (deployments, pods, etc) and outputs it as http/json.  
-This web application acting as proxy that only reads K8S API data and provides it for the other applications as secure access to K8S object's metadata without direct access to K8S API.
+Basic K8S controller to get metadata from K8S objects (deployments, pods, etc) and outputs it as http/json.  
+This web application acting as proxy that only reads data from K8S API and provides it for the other applications as a secure access point to the K8S object's metadata without direct access to K8S API.
 
 ## Features
-- read K8S objects metadata for all namespaces from K8S API
-- outputs metadata for K8S deployment objects as http/json
-- strict namespace to domain mapping (ouptuts only metadata mapped to specific domain)
-- filtering by namespace
-
-
-# Status
-Pre-production
+- reads K8S objects metadata for all namespaces from K8S API and outputs as http/json
+- strict namespace to domain mapping (outputs only metadata mapped to specific domain)
+- data filtering by namespace
 
 
 # Technology stack
@@ -39,12 +34,12 @@ K8S instance
 # Configuration
 ## Environment variables
 | Name | Required | Values | Description |
-|----------|:-------------:|------:|------:|
-|STRICT_NAMESPACE_MAPPING|False||strict namespace to domain mapping, example: `frontend.develop.example.com:develop,frontend.staging.example.com:staging`|
+|:----------|:-------------:|:------|:------|
+|STRICT_NAMESPACE_MAPPING|False||Strict namespace to domain mapping, example: `frontend.develop.example.com:develop,frontend.staging.example.com:staging`|
 
 
 # Usage
-- Apply K8S RBAC configuration:
+1. Apply K8S RBAC configuration:
 ```
 ---
 apiVersion: v1
@@ -79,7 +74,7 @@ roleRef:
   name: k8s-controller-objects-metadata
   apiGroup: rbac.authorization.k8s.io
 ```
-- Apply k8s-controller-objects-metadata K8S Deployment, Service and ConfigMap:
+2. Apply k8s-controller-objects-metadata K8S Deployment, Service and ConfigMap:
 ```
 ---
 apiVersion: v1
@@ -133,10 +128,9 @@ spec:
     app: k8s-controller-objects-metadata
 ```
 
-Use K8S configuration to reach k8s-controller-objects-metadata service  
-For example http://100.100.100.23/deployments/  
+Use K8S configuration to reach k8s-controller-objects-metadata service. For example http://100.100.100.23/deployments/  
 Endpoints:
-  - /deployments/ - for K8S deployments objects  
+  - /deployments/ - for K8S deployment objects  
   Filtering: http://100.100.100.23/deployments/?namespace=develop.  
   Note: if request domain is specified in strict namespace mapping (STRICT_NAMESPACE_MAPPING env variable) this filtering feature won't work.  
 
@@ -145,8 +139,7 @@ For example you have 2 domains attached to K8S frontend.develop.example.com and 
 
 
 # Docker
-[![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/k8s_controller_objects_metadata-<>.svg)](https://hub.docker.com/repository/docker/vfabi/k8s-controller-objects-metadata)  
-Build: `docker build -t k8s-controller-objects-metadata:latest -f ./deploy/Dockerfile .`
+[![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/k8s_controller_objects_metadata-<>.svg)](https://hub.docker.com/repository/docker/vfabi/k8s-controller-objects-metadata)
 
 
 # Contributing
