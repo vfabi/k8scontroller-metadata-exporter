@@ -1,5 +1,5 @@
 FROM python:3.6-alpine AS compile-image
-RUN apk add --no-cache uwsgi uwsgi-python uwsgi-http python-dev build-base linux-headers
+RUN apk add --no-cache uwsgi uwsgi-python uwsgi-http python3-dev build-base linux-headers
 RUN python -m venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
 COPY requirements.txt .
