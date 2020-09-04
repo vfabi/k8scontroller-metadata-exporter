@@ -46,18 +46,20 @@ def deployments():
         json object:
             [
                 {
-                    "image": "vfabi/testapp", 
-                    "image_release": "latest", 
+                    "name": "testapp",
+                    "namespace": "develop",
+                    "images":[
+                        "mcr.microsoft.com/aks/hcp/tunnel-openvpn:1.0.8",
+                        "mcr.microsoft.com/aks/hcp/hcp-tunnel-front:v1.9.2-v3.0.14"
+                    ],
                     "labels": {
                         "app": "testapp"
                     }, 
-                    "name": "testapp", 
-                    "namespace": "develop", 
                     "status": {
-                        "available_replicas": 1, 
+                        "available_replicas": 1,
                         "ready_replicas": 1,
-                        "replicas": 1, 
-                        "unavailable_replicas": null, 
+                        "replicas": 1,
+                        "unavailable_replicas": null,
                         "updated_replicas": 1
                     }
                 },
