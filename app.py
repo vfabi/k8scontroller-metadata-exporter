@@ -77,18 +77,14 @@ def deployments():
 
     for deployment in deployments.items:
         ddata = {}
+        ddata['images'] = []
 
         if namespace == deployment.metadata.namespace:
             ddata['name'] = deployment.metadata.name
             ddata['namespace'] = deployment.metadata.namespace
             ddata['labels'] = deployment.metadata.labels
-            configmeta = deployment.metadata.annotations.get('kubectl.kubernetes.io/last-applied-configuration', None)
-            if configmeta:
-                meta = json.loads(configmeta)
-                spec = meta.get('spec', None)
-                if spec:
-                    ddata['image'] = spec['template']['spec']['containers'][0]['image'].split(':')[0]
-                    ddata['image_release'] = spec['template']['spec']['containers'][0]['image'].split(':')[1]
+            for container in deployment.spec.template.spec.containers:
+                ddata['images'].append(container.image)
             ddata['status'] = {
                 'replicas': deployment.status.replicas,
                 'available_replicas': deployment.status.available_replicas,
@@ -102,13 +98,8 @@ def deployments():
             ddata['name'] = deployment.metadata.name
             ddata['namespace'] = deployment.metadata.namespace
             ddata['labels'] = deployment.metadata.labels
-            configmeta = deployment.metadata.annotations.get('kubectl.kubernetes.io/last-applied-configuration', None)
-            if configmeta:
-                meta = json.loads(configmeta)
-                spec = meta.get('spec', None)
-                if spec:
-                    ddata['image'] = spec['template']['spec']['containers'][0]['image'].split(':')[0]
-                    ddata['image_release'] = spec['template']['spec']['containers'][0]['image'].split(':')[1]
+            for container in deployment.spec.template.spec.containers:
+                ddata['images'].append(container.image)
             ddata['status'] = {
                 'replicas': deployment.status.replicas,
                 'available_replicas': deployment.status.available_replicas,
