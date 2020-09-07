@@ -1,0 +1,3 @@
+- Feature: add authentication mechanism (basic auth or token)
+- Feature: add get pods details data API endpoint
+- Feature: add pod logs export button

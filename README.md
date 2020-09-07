@@ -35,7 +35,7 @@ K8S instance
 ## Environment variables
 | Name | Required | Values | Description |
 |:----------|:-------------:|:------|:------|
-|STRICT_NAMESPACE_MAPPING|False||Strict namespace to domain mapping, example: `frontend.develop.example.com:develop,frontend.staging.example.com:staging`|
+|STRICT_NAMESPACE_MAPPING|False||Strict namespace to domain mapping, example: `'frontend.develop.example.com:develop,frontend.staging.example.com:staging'`|
 
 
 # Usage
@@ -58,6 +58,16 @@ rules:
 - apiGroups: ["extensions", "apps"]
   resources: ["deployments", "replicasets"]
   verbs: ["get", "list"]
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - watch
+  - list
+
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -128,11 +138,18 @@ spec:
     app: k8s-controller-objects-metadata
 ```
 
-Use K8S configuration to reach k8s-controller-objects-metadata service. For example http://100.100.100.23/deployments/  
-Endpoints:
+Modify your K8S configuration (ingress or service) to expose k8s-controller-objects-metadata application. For example http://100.100.100.23/deployments/  
+
+Application endpoints:
   - /deployments/ - for K8S deployment objects  
-  Filtering: http://100.100.100.23/deployments/?namespace=develop.  
+  Arguments, filtering example: http://100.100.100.23/deployments/?namespace=develop  
   Note: if request domain is specified in strict namespace mapping (STRICT_NAMESPACE_MAPPING env variable) this filtering feature won't work.  
+
+  - /pods/ - for K8S pods objects  
+  Arguments, filtering example: http://100.100.100.23/pods/?namespace=develop  
+
+  - /pod/logs/ - for K8S pod logs  
+  Arguments example: http://100.100.100.23/pod/logs/?namespace=develop&pod=application-7fcf8df75d-pr545&tail_lines=100  
 
 Strict namespace mapping feature allow to map request domain only get K8S objects metadata only from specified for it namespace.  
 For example you have 2 domains attached to K8S frontend.develop.example.com and frontend.staging.example.com. You have configured ingress (or other K8S solution) and would like to provide access for application that serves requests at frontend.develop.example.com only for K8S objects metadata from develop namespace - just put this data in STRICT_NAMESPACE_MAPPING env variable `frontend.develop.example.com:develop` or for 2 domains `frontend.develop.example.com:develop,frontend.staging.example.com:staging` accordingly.
