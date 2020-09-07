@@ -7,7 +7,7 @@
     @author: vfabi
     @contact person: vfabi
     @support: vfabi
-    @inital date: 2020-05-17 18:30:40
+    @initial date: 2020-05-17 18:30:40
     @license: this file is subject to the terms and conditions defined
         in file 'LICENSE', which is part of this source code package
     @description
@@ -25,10 +25,11 @@ def strictNamespaceMappingEnvarParse(envar=None):
         STRICT_NAMESPACE_MAPPING value example: 'frontend.develop.example.com:develop,frontend.staging.example.com:staging'
         No spaces or special chars.
     """
-    if envar:                                                                                                                                                    
-        items = envar.split(',')                                                                                                                                                                                                                       
-        mapdict = {}                                                                                                                                                                                                                                      
-        for item in items:                                                                                                                                                                                                                             
+
+    if envar:
+        items = envar.split(',')
+        mapdict = {}
+        for item in items:
             mapdict[item.split(':')[0]] = item.split(':')[1]
         return mapdict
     return None
