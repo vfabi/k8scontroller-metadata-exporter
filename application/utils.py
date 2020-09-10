@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    @project: k8s-controller-objects-metadata
+    @project: k8scontroller-metadata-exporter
     @component: core
     @author: vfabi
     @contact person: vfabi
