@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    @project: k8s-controller-objects-metadata
+    @project: k8scontroller-metadata-exporter
     @component: core
     @author: vfabi
     @support: vfabi
@@ -10,7 +10,7 @@
     @license: this file is subject to the terms and conditions defined
         in file 'LICENSE', which is part of this source code package
     @description
-        k8s-controller-objects-metadata entrypoint application.
+        k8scontroller-metadata-exporter application entrypoint.
     @todo
 
     THIS FILE IS PART OF @PROJECT_NAME@ PROJECT.
