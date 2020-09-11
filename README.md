@@ -43,15 +43,15 @@ Kubernetes instance and Nginx ingress controller installed.
 
 # Usage
 1. Apply Kubernetes RBAC configuration:
-```
-- - -
+```yaml
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: k8scontroller-metadata-exporter
   namespace: test
 
-- - -
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -71,7 +71,7 @@ rules:
   - watch
   - list
 
-- - -
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -88,8 +88,8 @@ roleRef:
 ```
 
 2. Apply k8scontroller-metadata-exporter K8S Deployment, Service, ConfigMap and Ingress:
-```
-- - -
+```yaml
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -99,7 +99,7 @@ data:
   # No special chars and spaces for value
   STRICT_NAMESPACE_MAPPING: frontend.develop.example.com:develop,frontend.staging.example.com:staging
 
-- - -
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -125,7 +125,7 @@ spec:
         - configMapRef:
             name: k8scontroller-metadata-exporter
 
-- - -
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -140,7 +140,7 @@ spec:
   selector:
     app: k8scontroller-metadata-exporter
 
-- - -
+---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
